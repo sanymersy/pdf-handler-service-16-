@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Login</title>
+    <style>
+        body {
+            background-image: url("/images/hero-bg.jpg");
+            background-repeat: no-repeat;
+            background-size: cover;
+            font-family: Arial, sans-serif;
+        }
+
+        h2 {
+            color: #333;
+        }
+
+        form {
+            width: 40%;
+            margin: auto;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0px 0px 5px 0px rgba(0, 0, 0, 0.75);
+            background-color: transparent;
+        }
+
+        input[type=text],
+        input[type=password],
+        select {
+            width: 100%;
+            padding: 12px 20px;
+            margin: 8px 0;
+            display: inline-block;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+
+        button[type=submit],
+        a {
+            background-color: orangered;
+            color: white;
+            padding: 12px 20px;
+            margin: 8px 0;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            width: 100%;
+            transition: all 0.3s ease-in-out;
+        }
+
+        button[type=submit]:hover,
+        a:hover {
+            background-color: darkred;
+            transform: scale(1.05);
+        }
+
+        .error {
+            color: red;
+        }
+
+        /* Login and Register Buttons */
+
+        button {
+            display: inline-block;
+            margin: 0 10px;
+            padding: 12px 20px;
+            background-color: #007bff;
+            color: #fff;
+            font-size: 16px;
+            text-align: center;
+            border-radius: 4px;
+            border: none;
+            cursor: pointer;
+            transition: all 0.3s ease-in-out;
+        }
+
+        .btn:hover {
+            background-color: #0069;
+        }
+
+    </style>
+</head>
+<body>
+<form th:action="@{/login}" method="POST" class="form-signin">
+    <h3 style="color: white;">Login</h3>
+    <input type="text" name="email" th:placeholder="Email" /> <br /><br />
+    <input type="password" th:placeholder="Password" name="password" /> <br /><br />
+    <button type="submit">Login</button> <br><br> <a th:href="@{/register}" th:text="'Register'">Register</a><br />
+    <div th:if="${param.error}" style="color: orangered;"><p>Email or Password is invalid.</p></div> <br />
+</form>
+</body>
+</html>

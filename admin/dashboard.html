@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
+
+<head>
+   <title>Admin Dashboard</title>
+   <meta charset="UTF-8">
+   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+   <!-- Link to CSS Animation Library -->
+   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
+
+   <!-- Link to Bootstrap CSS -->
+   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+         integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
+   <style>
+      body {
+         background-image: url("/images/hero-bg.jpg");
+         background-repeat: no-repeat;
+         background-size: cover;
+         font-family: Arial, sans-serif;
+      }
+
+      table {
+         border-collapse: collapse;
+         width: 100%;
+      }
+
+      th, td {
+         text-align: left;
+         padding: 8px;
+         border-bottom: 1px solid #ddd;
+      }
+
+      /*tr:nth-child(even) {*/
+      /*   background-color: #f2f2f2;*/
+      /*}*/
+
+      .edit-btn, .delete-btn {
+         background-color: orangered;
+         color: white;
+         border: none;
+         padding: 8px 16px;
+         text-align: center;
+         display: inline-block;
+         border-radius: 4px;
+         cursor: pointer;
+         transition: all 0.3s ease-in-out;
+         text-decoration: none;
+         margin-right: 8px;
+      }
+
+      .edit-btn:hover, .delete-btn:hover {
+         background-color: #ff7f50;
+         transform: scale(1.05);
+      }
+
+      .add-btn {
+         background-color: #007bff;
+         color: white;
+         border: none;
+         padding: 8px 16px;
+         text-align: center;
+         display: inline-block;
+         border-radius: 4px;
+         cursor: pointer;
+         transition: all 0.3s ease-in-out;
+         text-decoration: none;
+      }
+
+      .add-btn:hover {
+         background-color: #0069;
+      }
+
+      h2 {
+         color: #333;
+      }
+
+
+
+      label {
+         display: block;
+         font-size: 16px;
+         color: #333;
+         margin-bottom: 5px;
+      }
+
+      input[type="text"],
+      textarea {
+         width: 100%;
+         padding: 10px;
+         border: 1px solid #ccc;
+         border-radius: 4px;
+         box-sizing: border-box;
+         margin-bottom: 20px;
+         font-size: 16px;
+      }
+
+      textarea {
+         height: 100px;
+      }
+
+      button[type="submit"] {
+         background-color: #008CBA;
+         color: #fff;
+         border: none;
+         padding: 10px 20px;
+         border-radius: 4px;
+         cursor: pointer;
+         margin-top: 10px;
+      }
+
+      button[type="submit"]:hover {
+         background-color: #0077A8;
+      }
+
+
+      .navbar {
+         background-color: orangered;
+      }
+
+      .navbar-nav {
+         margin-left: auto;
+      }
+
+      .nav-link {
+         color: #fff !important;
+      }
+
+      .nav-link:hover {
+         color: #fff !important;
+      }
+
+
+      .animated {
+         animation-duration: 1s;
+         animation-fill-mode: both;
+      }
+
+      .fadeInDown {
+         animation-name: fadeInDown;
+      }
+
+      .fadeInUp {
+         animation-name: fadeInUp;
+      }
+   </style>
+
+</head>
+
+<body>
+
+<nav class="navbar navbar-expand-lg navbar-dark">
+   <a class="navbar-brand animated fadeInDown" href="#">PDF LIST</a>
+   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
+           aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+   </button>
+   <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class
+                  ="navbar-nav">
+         <li class="nav-item active">
+            <a class="nav-link" th:href="@{/}">Home <span class="sr-only">(current)</span></a>
+         </li>
+         <li class="nav-item">
+            <a class="nav-link" th:href="@{/logout}">Log out</a>
+         </li>
+      </ul>
+   </div>
+</nav><div class="container">
+   <h1 class="animated fadeInUp" style="color: white; text-align: center; font-weight: bolder">Welcome PDF Handling System </h1>
+
+</div>
+
+<form action="/api/documents/search" method="get">
+   <label for="searchName" style="color:white">Search by description:
+   <input type="text" id="searchName" name="name"></label>
+   <button type="submit">Search</button>
+</form>
+
+
+<table style="color: white">
+   <thead>
+   <tr>
+      <th>Name</th>
+      <th>Description</th>
+      <th>PDF File</th>
+      <th>Actions</th>
+   </tr>
+   </thead>
+   <tbody>
+
+   <th:block th:each="pdf : ${pdfs}">
+      <tr>
+         <td th:text="${pdf.name}"></td>
+         <td th:text="${pdf.description}"></td>
+         <td>
+
+            <a th:href="@{'/pdf/' + ${pdf.id} + '/download'}">Download</a>
+
+         </td>
+         <td>
+            <a class="btn btn-sm btn-primary" th:href="@{/edit/{id}(id=${pdf.id})}">Edit</a>
+            <a class="btn btn-sm btn-danger" th:href="@{/delete/{id}(id=${pdf.id})}" onclick="return confirm('Are you sure you want to delete this booking?')">Delete</a>
+         </td>
+
+      </tr>
+   </th:block>
+   </tbody>
+</table>
+<a th:href="@{/pdfs}" class="add-btn" style="color: orangered">View Uploaded PDF</a>
+
+<!-- Link to jQuery and Bootstrap JS -->
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+        crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+        integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNSB6T0"
+        crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+        integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+        crossorigin="anonymous"></script>
+</body>
+</html>

@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
+<head>
+    <title>Pdf List</title>
+    <style>
+        body {
+            background-image: url("/images/hero-bg.jpg");
+            background-repeat: no-repeat;
+            background-size: cover;
+            font-family: Arial, sans-serif;
+        }
+        h2 {
+            color: #333;
+        }
+
+        form {
+            width: 40%;
+            margin: auto;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0px 0px 5px 0px rgba(0, 0, 0, 0.75);
+            background-color: transparent;
+        }
+
+        input[type=text],
+        input[type=password],
+        select {
+            width: 100%;
+            padding: 12px 20px;
+            margin: 8px 0;
+            display: inline-block;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+
+        button[type=submit],
+        a {
+            background-color: orangered;
+            color: white;
+            padding: 12px 20px;
+            margin: 8px 0;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            width: 100%;
+            transition: all 0.3s ease-in-out;
+        }
+
+        button[type=submit]:hover,
+        a:hover {
+            background-color: orangered;
+            transform: scale(1.05);
+        }
+
+        .error {
+            color: red;
+        }
+
+
+
+        button {
+            display: inline-block;
+            margin: 0 10px;
+            padding: 12px 20px;
+            background-color: #007bff;
+            color: #fff;
+            font-size: 16px;
+            text-align: center;
+            border-radius: 4px;
+            border: none;
+            cursor: pointer;
+            transition: all 0.3s ease-in-out;
+        }
+
+        .btn:hover {
+            background-color: #0069;
+        }
+
+
+    </style>
+</head>
+<body>
+<p><a th:href="@{/}">Home</a></p><br>
+<p><a th:href="@{/logout}">Log out</a></p>
+	<form method="POST" action="/upload" enctype="multipart/form-data">
+    <div class="form-group" style="color: white">
+        <label for="name">Name:</label>
+        <input type="text" id="name" name="name" required>
+    </div>
+
+    <div class="form-group" style="color: white">
+        <label for="Description">Description:</label>
+        <input type="text" id="description" name="description" required>
+    </div>
+        <br>
+
+    <label for="pdfFile" style="color: white">Select a PDF file:
+    <input type="file" id="pdfFile" name="pdfFile"></label>
+    <br><br>
+    <input type="submit" value="Upload">
+</form>
+</body>
+</html>

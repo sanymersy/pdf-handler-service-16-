@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Edit Booking</title>
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+<style>
+
+    body {
+        background-image: url("/images/hero-bg.jpg");
+        background-repeat: no-repeat;
+        background-size: cover;
+        font-family: Arial, sans-serif;
+    }
+
+    h2 {
+        color: #333;
+    }
+
+    form {
+        margin: 20px auto;
+        max-width: 500px;
+        background-color: #fff;
+        border-radius: 4px;
+        padding: 20px;
+        box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1);
+    }
+
+    label {
+        display: block;
+        font-size: 16px;
+        color: #333;
+        margin-bottom: 5px;
+    }
+
+    input[type="text"], textarea {
+        width: 100%;
+        padding: 10px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        box-sizing: border-box;
+        margin-bottom: 20px;
+        font-size: 16px;
+    }
+
+    textarea {
+        height: 100px;
+    }
+
+    button[type="submit"] {
+        background-color: #008CBA;
+        color: #fff;
+        border: none;
+        padding: 10px 20px;
+        border-radius: 4px;
+        cursor: pointer;
+        margin-top: 10px;
+    }
+
+    button[type="submit"]:hover {
+        background-color: #0077A8;
+    }
+
+</style>
+</head>
+<body>
+<div class="container">
+    <h1 class="mt-3 mb-3">Update PDF</h1>
+    <form method="post" th:action="@{/update/{id}(id=${pdfs.id})}" enctype="multipart/form-data" th:object="${pdfs}">
+
+
+            <input type="hidden" th:name="id" th:value="${pdfs.id}">
+            <div>
+                <label for="name">Name:</label>
+                <input type="text" id="name" th:name="name" th:value="${pdfs.name}" required>
+            </div>
+            <div>
+                <label for="description">Description:</label>
+                <input type="text" id="description" th:name="description" th:value="${pdfs.description}" required>
+            </div>
+            <div>
+                <label for="pdfFile">PDF file:</label>
+                <input type="file" id="pdfFile" th:name="pdfFile">
+                <p>Current file: <a th:href="@{'/pdf/' + ${pdfs.id} + '/download'}" th:text="${pdfs.pdf}"></a></p>
+            </div>
+            <input type="submit" value="Update">
+        </form>
+
+</div>
+<!-- jQuery -->
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<!-- Bootstrap JS -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
+
+
+

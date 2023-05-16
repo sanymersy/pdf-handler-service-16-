@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Search Results</title>
+    <style>
+        body {
+            background-image: url("/images/hero-bg.jpg");
+            background-repeat: no-repeat;
+            background-size: cover;
+            font-family: Arial, sans-serif;
+        }
+        h1 {
+            text-align: center;
+            font-size: 2rem;
+            margin-top: 2rem;
+            color: white;
+        }
+
+        table {
+            margin: 2rem auto;
+            border-collapse: collapse;
+            width: 80%;
+            color: white;
+        }
+
+        th, td {
+            padding: 0.5rem;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+
+        th {
+            background-color: orangered;
+            color: white;
+        }
+
+        a {
+            display: block;
+            font-size: 1.2rem;
+            text-decoration: none;
+            color: #333;
+            padding: 0.5rem;
+            border: 1px solid #ccc;
+            border-radius: 0.3rem;
+            transition: all 0.3s ease;
+        }
+
+        button {
+            display: inline-block;
+            margin: 0 10px;
+            padding: 12px 20px;
+            background-color: orangered;
+            color: #fff;
+            font-size: 16px;
+            text-align: center;
+            border-radius: 4px;
+            border: none;
+            cursor: pointer;
+            transition: all 0.3s ease-in-out;
+        }
+
+        button:hover {
+            background-color: #0069;
+        }
+
+        a:hover {
+            background-color: #ffaa00;
+            color: #555;
+        }
+    </style>
+</head>
+
+<body>
+<h1>Search Results</h1>
+<table>
+    <thead>
+    <tr>
+        <th>Name</th>
+        <th>Download</th>
+    </tr>
+    </thead>
+    <tbody>
+    <th:block th:each="document : ${pdfs}">
+        <tr>
+            <td th:text="${document.name}"></td>
+            <td>
+                <form th:action="@{/pdf/{id}/download(id=${document.id})}" method="get">
+                    <button type="submit">Download</button>
+                </form>
+            </td>
+        </tr>
+    </th:block>
+    </tbody>
+</table>
+</body>
+</html>
